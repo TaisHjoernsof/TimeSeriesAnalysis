@@ -1,6 +1,7 @@
 ### Read training data
 #! Perhaps you need to set the working directory!?
-#setwd("/home/pbac/g/course02417/2025/assignment1")
+source("config.r")
+setwd(wd)
 D <- read.csv("DST_BIL54.csv")
 str(D)
 
