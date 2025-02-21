@@ -1,0 +1,26 @@
+# R-related ignores
+.Rhistory
+.RData
+.Rproj.user/
+.Rproj
+
+# Ignore IDE settings
+.RStudio/
+.vscode/
+
+# Ignore compiled files
+*.o
+*.so
+*.dll
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.csv
+*.tsv
+
+# Ignore virtual environments
+renv/
+
+# Ignore macOS system files
+.DS_Store
