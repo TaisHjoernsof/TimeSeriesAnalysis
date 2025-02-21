@@ -1,8 +1,5 @@
 ### Read training data
-#! Perhaps you need to set the working directory!?
-source("config.r")
-setwd(wd)
-D <- read.csv("DST_BIL54.csv")
+D <- read.csv("Assignment 1/data/DST_BIL54.csv")
 str(D)
 
 # See the help
