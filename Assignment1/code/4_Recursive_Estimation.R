@@ -47,3 +47,33 @@ for(i in 1:N){
 
 print(Theta_OLS[N,])
 print(Theta[N,])
+
+#Task 4.4
+
+R <- diag(0.1, p)
+theta <- c(0,0)
+lambda <- 0.7
+
+for(i in 1:N){
+  (x <- X[i, ])
+  # Update
+  (R <- lambda * R + x %*% t(x))
+  (theta <- theta + solve(R) %*% x %*% (y[i] - t(x) %*% theta))
+  Theta[i, ] <- theta
+}
+
+print(Theta[N,])
+
+R <- diag(0.1, p)
+theta <- c(0,0)
+lambda <- 0.99
+
+for(i in 1:N){
+  (x <- X[i, ])
+  # Update
+  (R <- lambda * R + x %*% t(x))
+  (theta <- theta + solve(R) %*% x %*% (y[i] - t(x) %*% theta))
+  Theta[i, ] <- theta
+}
+
+print(Theta[N,])
