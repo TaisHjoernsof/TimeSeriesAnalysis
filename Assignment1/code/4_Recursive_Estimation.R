@@ -63,6 +63,14 @@ for(i in 1:N){
 }
 
 print(Theta[N,])
+#Plot Theta[,1] and Theta[,2] against time
+plot(Dtrain$year, Theta[,1], type = "l", col = "red", xlab = "Year", ylab = "Theta_1")
+lines(Dtrain$year, Theta[,2], col = "blue")
+legend("topright", legend = c("Theta_1", "Theta_2"), col = c("red", "blue"), lty = 1)
+#Save the plot to file
+dev.copy(png, "plots/4.4-lambda-0.7.png")
+dev.off()
+
 
 R <- diag(0.1, p)
 theta <- c(0,0)
@@ -77,3 +85,9 @@ for(i in 1:N){
 }
 
 print(Theta[N,])
+plot(Dtrain$year, Theta[,1], type = "l", col = "red", xlab = "Year", ylab = "Theta_1")
+lines(Dtrain$year, Theta[,2], col = "blue")
+legend("topright", legend = c("Theta_1", "Theta_2"), col = c("red", "blue"), lty = 1)
+#Save the plot to file
+dev.copy(png, "plots/4.4-lambda-0.99.png")
+dev.off()
