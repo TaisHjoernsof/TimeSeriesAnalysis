@@ -61,6 +61,27 @@ cat("\nWLS Variance-Covariance Matrix:\n")
 print(V_WLS)
 cat("\nWLS Standard Errors:\nIntercept:", se_WLS[1], "\nSlope:", se_WLS[2], "\n")
 
+# Compute full residual variance-covariance matrix for WLS
+Sigma_WLS <- sigma2_wls * W_inv
+
+# Compute OLS residual variance-covariance matrix (Identity Matrix)
+Sigma_OLS <- sigma2_wls * diag(n)
+
+# Print relevant parts
+cat("\nFirst 5×5 Elements of OLS Variance-Covariance Matrix:\n")
+print(Sigma_OLS[1:5, 1:5])
+
+cat("\nLast 5×5 Elements of OLS Variance-Covariance Matrix:\n")
+print(Sigma_OLS[(n-4):n, (n-4):n])
+
+# Print only relevant parts of the 72×72 matrix
+cat("\nFirst 5×5 Elements of WLS Variance-Covariance Matrix:\n")
+print(Sigma_WLS[1:5, 1:5])
+
+cat("\nLast 5×5 Elements of WLS Variance-Covariance Matrix:\n")
+print(Sigma_WLS[(n-4):n, (n-4):n])
+
+
 # ==============================
 # Task 3.2: λ-Weights Analysis
 # ==============================
@@ -95,7 +116,7 @@ cat("Sum of WLS λ-weights:", sum_lambda_weights, "\n")
 cat("Sum of OLS weights:", sum_OLS_weights, "\n")
 
 # ==============================
-# Task 3.4: Estimate WLS model parameters
+# Task 3.4: Estimate WLS (and OLS) model parameters
 # ==============================
 
 cat("\nEstimated WLS Parameters:\n")
@@ -103,6 +124,14 @@ cat("Intercept (θ̂₁):", theta_WLS[1], "\nSlope (θ̂₂):", theta_WLS[2], "\
 
 cat("\nWLS Standard Errors:\n")
 cat("SE(θ̂₁):", se_WLS[1], "\nSE(θ̂₂):", se_WLS[2], "\n")
+
+# Extract estimated OLS parameters
+theta_OLS <- coef(m_OLS)  # Intercept and slope
+cat("\nEstimated OLS Parameters:\n")
+cat("Intercept (θ̂₁):", theta_OLS[1], "\nSlope (θ̂₂):", theta_OLS[2], "\n")
+
+cat("\nOLS Standard Errors:\n")
+cat("SE(θ̂₁):", se_OLS[1], "\nSE(θ̂₂):", se_OLS[2], "\n")
 
 # ==============================
 # Task 3.5: Forecasting
@@ -117,6 +146,23 @@ y_pred_wls <- X_future %*% theta_WLS  # Forecasted values
 # Compute prediction standard errors
 Vmatrix_pred <- sigma2_wls * (1 + (X_future %*% solve(t(X) %*% W %*% X) %*% t(X_future)))
 se_pred <- sqrt(diag(Vmatrix_pred))
+
+# Compute residuals for WLS and OLS
+residuals_wls <- Dtest$total - y_pred_wls
+residuals_ols <- Dtest$total - y_pred_ols
+
+# Compute MSE for WLS and OLS
+mse_wls <- mean(residuals_wls^2)
+mse_ols <- mean(residuals_ols^2)
+
+# Compute RMSE for WLS and OLS
+rmse_wls <- sqrt(mse_wls)
+rmse_ols <- sqrt(mse_ols)
+
+# Print results
+cat("MSE (WLS):", mse_wls, "\nMSE (OLS):", mse_ols, "\n")
+cat("RMSE (WLS):", rmse_wls, "\nRMSE (OLS):", rmse_ols, "\n")
+
 
 # Compute 95% prediction intervals
 alpha <- 0.05
