@@ -1,5 +1,5 @@
 ### Read training data
-D <- read.csv("Assignment 1/data/DST_BIL54.csv")
+D <- read.csv("data/DST_BIL54.csv")
 str(D)
 
 # See the help

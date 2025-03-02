@@ -1,5 +1,5 @@
 library(xtable)
-source("Assignment 1/code/read_data.R")
+source("Assignment1/code/read_data.R")
 
 y <- Dtrain$total[1:3]
 x <- Dtrain$year[1:3]
