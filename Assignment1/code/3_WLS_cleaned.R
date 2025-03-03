@@ -3,7 +3,7 @@ library(xtable)
 library(ggplot2)
 
 # Source the data processing script
-source("Assignment1/code/read_data.R")
+source("code/read_data.R")
 
 # ==============================
 # Model Definitions

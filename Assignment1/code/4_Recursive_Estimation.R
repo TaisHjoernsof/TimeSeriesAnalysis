@@ -1,6 +1,6 @@
 #source("code/read_data.R")
-source("Assignment1/code/read_data.R")
-source("Assignment1/code/3_WLS_cleaned_2.R") 
+source("code/read_data.R")
+source("code/3_WLS_cleaned_2.R") 
 
 library(plotly)  
 
@@ -33,8 +33,21 @@ for(i in 1:N){
     Theta_OLS[i, ] <- coef(m_OLS)
 }
 
-print(Theta_OLS[N,])
-print(Theta[N,])
+#Plot Theta[,1] and Theta_OLS[,1] on a x_axis of time with y_lims equal to min and max of Theta_OLS[,1]
+plot(Dtrain$year, Theta[,1], type = "l", col = "red", xlab = "Year", ylab = "Theta_1",ylim=c(min(Theta_OLS[,1]), max(Theta_OLS[,1])))
+lines(Dtrain$year, Theta_OLS[,1], col = "blue")
+legend("topright", legend = c("Theta_RLS_1", "Theta_OLS_1"), col = c("red", "blue"), lty = 1)
+#Save the plot to file
+dev.copy(png, "plots/4.3-Theta1.png", width = 800, height = 1600, res = 300)
+dev.off()
+
+plot(Dtrain$year, Theta[,2], type = "l", col = "red", xlab = "Year", ylab = "Theta_2",ylim=c(min(na.omit(Theta[,2])), max(na.omit(Theta_OLS[,2]))))
+lines(Dtrain$year, Theta_OLS[,2], col = "blue")
+legend("topright", legend = c("Theta_RLS_2", "Theta_OLS_2"), col = c("red", "blue"), lty = 1)
+#Save the plot to file of high resolution
+dev.copy(png, "plots/4.3-Theta2.png", width = 800, height = 800, res = 300)
+dev.off()
+
 
 # Now checking for better initial values <3
 
@@ -71,7 +84,7 @@ plot(Dtrain$year, Theta[,1], type = "l", col = "red", xlab = "Year", ylab = "The
 lines(Dtrain$year, Theta[,2], col = "blue")
 legend("topright", legend = c("Theta_1", "Theta_2"), col = c("red", "blue"), lty = 1)
 #Save the plot to file
-#dev.copy(png, "plots/4.4-lambda-0.7.png")
+dev.copy(png, "plots/4.4-lambda-0.7.png")
 dev.off()
 
 
@@ -92,7 +105,7 @@ plot(Dtrain$year, Theta[,1], type = "l", col = "red", xlab = "Year", ylab = "The
 lines(Dtrain$year, Theta[,2], col = "blue")
 legend("topright", legend = c("Theta_1", "Theta_2"), col = c("red", "blue"), lty = 1)
 #Save the plot to file
-#dev.copy(png, "plots/4.4-lambda-0.99.png")
+dev.copy(png, "plots/4.4-lambda-0.99.png")
 dev.off()
 
 
