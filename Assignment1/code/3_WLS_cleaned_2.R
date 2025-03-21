@@ -3,7 +3,7 @@ library(xtable)
 library(ggplot2)
 
 # Source the data processing script
-source("Assignment1/code/read_data.R")
+source("code/read_data.R")
 
 # ==============================
 # Model Definitions
@@ -16,7 +16,7 @@ V_OLS <- vcov(m_OLS)  # Variance-Covariance Matrix
 se_OLS <- sqrt(diag(V_OLS))  # Standard errors
 
 # OLS Predictions with standard error intervals
-ols_pred <- predict(m_OLS, newdata = data.frame(year = time_future), interval = "prediction", level = 0.95)
+ols_pred <- predict(m_OLS, newdata = data.frame(year = Dtest$year), interval = "prediction", level = 0.95)
 
 y_pred_ols <- ols_pred[, "fit"]
 y_pred_ols_lower <- ols_pred[, "lwr"]
@@ -185,7 +185,7 @@ ggplot(forecast_data, aes(x = Time)) +
   geom_line(data = Dtest, aes(x = year, y = total, color = "Test Data")) +
   geom_point(aes(y = Forecast, color = "WLS Prediction"), size = 2) +
   geom_point(aes(y = OLS_Prediction, color = "OLS Prediction"), size = 2) +
-  geom_ribbon(aes(ymin = Lower_PI, ymax = Upper_PI), fill = "purple", alpha = 0.2, show.legend = FALSE) +
+  geom_ribbon(aes(ymin = forecast_data$Lower_PI, ymax = forecast_data$Upper_PI), fill = "purple", alpha = 0.2, show.legend = FALSE) +
   geom_ribbon(aes(ymin = OLS_Lower_PI, ymax = OLS_Upper_PI), fill = "green", alpha = 0.2, show.legend = FALSE) +
   scale_color_manual(values = c("Training Data" = "blue", "Test Data" = "red", "WLS Prediction" = "purple", "OLS Prediction" = "green")) +
   labs(title = "WLS & OLS Forecast for 2024", x = "Year", y = "Total Vehicles (millions)", color = NULL) +
@@ -198,4 +198,4 @@ ggplot(forecast_data, aes(x = Time)) +
     legend.text = element_text(size = 14)
   )
 
-Lower_PI
+forecast_data$Lower_PI
