@@ -12,6 +12,7 @@ X = log(Y) - my
 phi <- -0.38
 Phi <- -0.94
 l <- length(X)
+sigma2_e <- 0.22^2
 
 e_hat <- (X + phi * lagvec(X,1)) * (X + Phi * lagvec(X,12))
 

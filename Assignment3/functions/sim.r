@@ -39,3 +39,16 @@ lagvec <- function(x, lag){
         return(x)
     }
 }
+
+rho <- function(k, phi_1, phi_2) {
+  rho <- list()
+
+  rho[[1]] <- 1
+  rho[[2]] <- -(phi_1 / (1 + phi_2))
+  rho[[3]] <- -(rho[[2]] * phi_1 + phi_2)
+
+  for (i in 4:(k + 1)) {
+    rho[[i]] <- -(rho[[i - 1]] * phi_1 + rho[[i - 2]] * phi_2)
+  }
+  return(rho)
+}

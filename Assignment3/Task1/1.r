@@ -91,7 +91,7 @@ plot_acf_comparison <- function(acf_data, ideal_acf, filename) {
 plot_acf_comparison(acf_data, ideal_acf, "Assignment3/Task1/plots/acf_comparison1_2.png")
 
 #Task 1.3
-m$ar <- c(-0.6,0.3) #Flipped because of sim function
+m$ar <- c(0.6,0.3) #Flipped because of sim function
 sims <- list()
 for (i in 1:5){
   sims[[i]] <- sim(m, n) #Sim taken from functions/sim.r
@@ -107,7 +107,7 @@ generate_and_save_plots(sims, "Assignment3/Task1/plots/simulations1_3.png")
 plot_acf_comparison(acf_data, ideal_acf, "Assignment3/Task1/plots/acf_comparison1_3.png")
 
 #Task 1.4
-m$ar <- c(0.7,-0.3) #Flipped because of sim function
+m$ar <- c(-0.6,0.3) #Flipped because of sim function
 sims <- list()
 for (i in 1:5){
   sims[[i]] <- sim(m, n) #Sim taken from functions/sim.r
@@ -122,8 +122,27 @@ for (i in 1:5) {
 generate_and_save_plots(sims, "Assignment3/Task1/plots/simulations1_4.png")
 plot_acf_comparison(acf_data, ideal_acf, "Assignment3/Task1/plots/acf_comparison1_4.png")
 
-#Task 1.4
-m$ar <- c(0.75,-0.3) #Flipped because of sim function
+#Task 1.5
+m$ar <- c(0.7,0.3) #Flipped because of sim function
+sims <- list()
+for (i in 1:5){
+  sims[[i]] <- sim(m, n) #Sim taken from functions/sim.r
+}
+
+acf_data <- list()
+ideal_acf <- rho(30,-0.7,-0.3)
+
+
+for (i in 1:5) {
+    acf_data[[i]] <- acf(sims[[i]], plot=FALSE)$acf
+}
+ideal_acf <- as.array(ideal_acf)
+
+generate_and_save_plots(sims, "Assignment3/Task1/plots/simulations1_5.png")
+#plot_acf_comparison(acf_data, ideal_acf, "Assignment3/Task1/plots/acf_comparison1_5.png")
+
+#Task 1.6
+m$ar <- c(0.75,0.3) #Flipped because of sim function
 sims <- list()
 for (i in 1:5){
   sims[[i]] <- sim(m, n) #Sim taken from functions/sim.r
@@ -135,5 +154,5 @@ for (i in 1:5) {
     acf_data[[i]] <- acf(sims[[i]], plot=FALSE)$acf
 }
 
-generate_and_save_plots(sims, "Assignment3/Task1/plots/simulations1_5.png")
-plot_acf_comparison(acf_data, ideal_acf, "Assignment3/Task1/plots/acf_comparison1_5.png")
+generate_and_save_plots(sims, "Assignment3/Task1/plots/simulations1_6.png")
+plot_acf_comparison(acf_data, ideal_acf, "Assignment3/Task1/plots/acf_comparison1_6.png")
